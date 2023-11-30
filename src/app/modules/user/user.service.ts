@@ -50,6 +50,32 @@ const createdOrder = async (userId: string, orderData: TOrder) => {
   }
 };
 
+const getUserOrderFromDB = async (userId: string) => {
+  try {
+    if (await User.isUserExists(userId.toString())) {
+      // throw new Error('User already exists!')
+    } else {
+      throw new Error('User not found!');
+    }
+
+    const existingUser = await User.findOne({ userId });
+
+    if (!existingUser) {
+      throw new Error('User not found');
+    }
+
+    if (!existingUser.orders || existingUser.orders.length === 0) {
+      throw new Error('User has no orders');
+    }
+
+    const order_result = { orders: existingUser.orders };
+
+    return order_result;
+  } catch (err) {
+    throw new Error('Orders does not exist');
+  }
+};
+
 export const UserService = {
   createUserIntoDB,
   allUsers,
@@ -57,4 +83,5 @@ export const UserService = {
   updateUser,
   deleteUserFromDB,
   createdOrder,
+  getUserOrderFromDB,
 };
