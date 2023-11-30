@@ -8,14 +8,6 @@ import {
   UserModel,
 } from './user.interface';
 import config from '../../config';
-// import {
-//   TAddress,
-//   TOrder,
-//   TUser,
-//   TUserName,
-//   UserModel,
-// } from './user/user.interface';
-// import config from '../config';
 
 const userNameSchema = new Schema<TUserName>({
   firstName: { type: String, required: [true, 'first name is required'] },
