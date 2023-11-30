@@ -76,6 +76,38 @@ const getUserOrderFromDB = async (userId: string) => {
   }
 };
 
+const getUserOrderTotalPrice = async (userId: string) => {
+  try {
+    const userExists = await User.isUserExists(userId.toString());
+    if (!userExists) {
+      throw new Error('User not found!');
+    }
+
+    const existingUser = await User.findOne({ userId });
+
+    if (!existingUser) {
+      throw new Error('User not found');
+    }
+
+    const orders = existingUser.orders || []; // Ensure 'orders' is an array or initialize to an empty array if undefined
+
+    let totalPrice = 0;
+
+    for (let i = 0; i < orders.length; i++) {
+      const order = orders[i];
+      if (order && order.price !== undefined && order.quantity !== undefined) {
+        totalPrice += order.price * order.quantity;
+      } else {
+        throw new Error('Price or quantity is undefined for an order');
+      }
+    }
+
+    return totalPrice;
+  } catch (err) {
+    throw new Error('Error getting user order');
+  }
+};
+
 export const UserService = {
   createUserIntoDB,
   allUsers,
@@ -84,4 +116,5 @@ export const UserService = {
   deleteUserFromDB,
   createdOrder,
   getUserOrderFromDB,
+  getUserOrderTotalPrice,
 };
