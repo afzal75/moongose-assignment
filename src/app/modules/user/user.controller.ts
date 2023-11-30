@@ -1,3 +1,5 @@
+/* eslint-disable no-console */
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { Request, Response } from 'express';
 import { userValidation } from './user.validation';
 import { UserService } from './user.service';
@@ -30,6 +32,25 @@ const createUser = async (req: Request, res: Response) => {
   }
 };
 
+const allUsers = async (req: Request, res: Response) => {
+  try {
+    const result = await UserService.allUsers();
+
+    res.status(200).json({
+      success: true,
+      message: 'Users fetched successfully!',
+      data: result,
+    });
+  } catch (err: any) {
+    console.log(err);
+    res.status(500).json({
+      success: false,
+      message: 'something went wrong',
+      error: err,
+    });
+  }
+};
 export const UserController = {
   createUser,
+  allUsers,
 };
