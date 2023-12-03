@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 /* eslint-disable no-console */
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { Request, Response } from 'express';
@@ -24,7 +25,7 @@ const createUser = async (req: Request, res: Response) => {
     });
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
   } catch (err: any) {
-    res.status(500).json({
+    res.status(404).json({
       success: false,
       message: err.message || 'something went wrong',
       error: err,
@@ -43,7 +44,7 @@ const allUsers = async (req: Request, res: Response) => {
     });
   } catch (err: any) {
     console.log(err);
-    res.status(500).json({
+    res.status(404).json({
       success: false,
       message: 'something went wrong',
       error: err,
@@ -63,7 +64,7 @@ const getSingleUser = async (req: Request, res: Response) => {
     });
   } catch (err: any) {
     console.log(err);
-    res.status(500).json({
+    res.status(404).json({
       success: false,
       message: 'something went wrong',
       error: err,
@@ -84,7 +85,7 @@ const updateUser = async (req: Request, res: Response) => {
     });
   } catch (err: any) {
     console.log(err);
-    res.status(500).json({
+    res.status(404).json({
       success: false,
       message: 'something went wrong',
       error: err,
@@ -104,7 +105,7 @@ const deleteUser = async (req: Request, res: Response) => {
       data: result,
     });
   } catch (err: any) {
-    res.status(500).json({
+    res.status(404).json({
       success: false,
       message: err.message,
       error: {
@@ -134,7 +135,7 @@ const createOrders = async (req: Request, res: Response) => {
       data: null,
     });
   } catch (err: any) {
-    res.status(500).json({
+    res.status(404).json({
       success: false,
       message: err.message || 'Something went wrong while updating data',
       error: err,
@@ -152,7 +153,7 @@ const getUserOrders = async (req: Request, res: Response) => {
       data: result,
     });
   } catch (err: any) {
-    res.status(500).json({
+    res.status(404).json({
       success: false,
       message: err.message || 'Something went wrong while updating orders data',
       error: err.message,
@@ -170,7 +171,7 @@ const getUserOrdersTotalPrice = async (req: Request, res: Response) => {
       data: result,
     });
   } catch (err: any) {
-    res.status(500).json({
+    res.status(404).json({
       success: false,
       message: err.message || 'Something went wrong while total pricedata',
       error: err,
