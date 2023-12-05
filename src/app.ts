@@ -1,19 +1,20 @@
-import cors from 'cors';
-import express, { Application, Request, Response } from 'express';
-import { UserRoutes } from './app/modules/user/user.routes';
-
+import cors from "cors";
+import express, { Application, Request, Response } from "express";
+import { UserRouter } from "./app/modules/users/users.route";
 const app: Application = express();
 
-//parsers
 app.use(express.json());
 app.use(cors());
 
-// application routes
+app.use("/api/users", UserRouter);
 
-app.get('/', (req: Request, res: Response) => {
-  res.send('Welcome again !');
-});
+const getACon = (req: Request, res: Response) => {
+  res.status(200).json({
+    status: "Succcess",
+    message: "Welcome to my assign",
+  });
+};
 
-app.use('/api/users', UserRoutes);
+app.get("/", getACon);
 
 export default app;
